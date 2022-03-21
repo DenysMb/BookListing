@@ -38,7 +38,7 @@ const Home = () => {
     <div className={Styles.HomeContainer}>
       {loading && (
         <div className={Styles.Loading}>
-          <div className={Styles.LoadingText}>Carregando</div>
+          <div className={Styles.LoadingText}>Loading</div>
         </div>
       )}
 
