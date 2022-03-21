@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useState,
+} from "react";
+import Home from "./features/Home";
 
-function App() {
+type DataContextProps = {
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+  filteredTitle: string;
+  setFilteredTitle: Dispatch<SetStateAction<string>>;
+  filteredPublishDate: string;
+  setFilteredPublishDate: Dispatch<SetStateAction<string>>;
+};
+
+const initialContextValue = {
+  page: 1,
+  setPage: () => null,
+  filteredTitle: "",
+  setFilteredTitle: () => null,
+  filteredPublishDate: "",
+  setFilteredPublishDate: () => null,
+};
+
+export const DataContext = createContext<DataContextProps>(initialContextValue);
+
+const App = () => {
+  const [page, setPage] = useState(1);
+  const [filteredTitle, setFilteredTitle] = useState("");
+  const [filteredPublishDate, setFilteredPublishDate] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DataContext.Provider
+      value={{
+        page,
+        setPage,
+        filteredTitle,
+        setFilteredTitle,
+        filteredPublishDate,
+        setFilteredPublishDate,
+      }}
+    >
+      <Home />
+    </DataContext.Provider>
   );
-}
+};
 
 export default App;
